@@ -1,0 +1,6 @@
+.env
+/data/init_db/pg*
+/data/init_db/*
+!/data/init_db/0*
+!/data/init_db/.gitkeep
+.DS_Store

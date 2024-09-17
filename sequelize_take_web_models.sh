@@ -1,0 +1,1 @@
+PGSSLMODE=require node_modules/sequelize-auto/bin/sequelize-auto -o "./src/persistence/web_models" -d caf_hd_api -s public -h host_caf -u caf_hd -p 5432 -x caf_hd -e postgres -l ts --noAlias --noInitModels

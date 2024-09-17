@@ -1,0 +1,23 @@
+version: '3.1'
+services:
+  database:
+    image: database_${COMPOSE_PROJECT_NAME}
+    build:
+      context: ./containers/database.${DATABASE_TYPE}/.
+      dockerfile: database.${DATABASE_TYPE}.Dockerfile
+      args:
+        - DATABASE_TYPE=${DATABASE_TYPE}
+        - DATABASE_REPO=${DATABASE_REPO}
+        - DATABASE_VERSION=${DATABASE_VERSION}
+    volumes:
+      - ./data/init_db:/docker-entrypoint-initdb.d
+    environment:
+      TZ: America/Argentina/Buenos_Aires
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASS}
+    stop_grace_period: 60s
+    ports:
+      - ${DATABASE_HOST_PORT}:${DATABASE_CONTAINER_PORT}
+
+volumes:
+  database:

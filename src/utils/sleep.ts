@@ -1,0 +1,1 @@
+export const sleep = async (miliseconds: number) => await new Promise(resolve => setTimeout(resolve, miliseconds))
