@@ -11,7 +11,14 @@ import { GeneralDesc } from '../../persistence/models/GeneralDesc'
 
 const makeQuery = (req: Request): FindOptions => ({
   ...(req.params.omnisearch ? makeOmniSearchQuery(req) : makeRegularQuery(req)),
-  include: [User, GeneralDesc]
+  include: [User, 
+    {
+      model: GeneralDesc,
+      as: 'generalAreas'
+    }, {
+      model: GeneralDesc,
+      as: 'generalRegions'
+    }]
 })
 
 const makeOmniSearchQuery = (req: Request): FindOptions => ({

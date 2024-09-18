@@ -103,7 +103,7 @@ export class Person extends Model<Person> {
   @Column
   regionId: number
 
-  @BelongsTo(() => GeneralDesc)
+  @BelongsTo(() => GeneralDesc, { as: 'generalRegions', foreignKey: 'regionId' }  )
   regions?: GeneralDesc
 
   @Column({
@@ -119,7 +119,7 @@ export class Person extends Model<Person> {
   @Column
   areaId: number
 
-  @BelongsTo(() => GeneralDesc)
+  @BelongsTo(() => GeneralDesc, { as: 'generalAreas', foreignKey: 'areaId' }  )
   areas?: GeneralDesc
 
   @Column({

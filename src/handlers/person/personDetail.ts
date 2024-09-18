@@ -17,11 +17,20 @@ export default async (req: Request, res: Response, next: Next) => {
 
   try {
 
-    const person = await webDB.getRepository(Person).findByPk(personId, {include: [User, GeneralDesc, Country]})
+    const person = await webDB.getRepository(Person).findByPk(personId, {
+      include: [User,
+        {
+          model: GeneralDesc,
+          as: 'generalAreas'
+        }, {
+          model: GeneralDesc,
+          as: 'generalRegions'
+        }, Country]
+    })
 
     if (person) {
 
-      await send(req, res, 200, { person: person.toJSON()})
+      await send(req, res, 200, { person: person.toJSON() })
 
     } else {
 

@@ -68,7 +68,7 @@ export default async (req: Request, res: Response, next: Next) => {
   } else {
 
     await send(req, res, 400, {
-      error: 'Wrong email or password'
+      error: 'user does not exist'
     })
 
   }

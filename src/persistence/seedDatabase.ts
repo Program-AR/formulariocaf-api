@@ -36,7 +36,7 @@ export const seedDatabase = async (sequelize: Sequelize, testing = false) => {
   if (shouldCreateData || shouldCreateFullData) {
     await sequelize.sync({ force: true })
 
-    const { User, Role, UserRole } = sequelize.models
+    const { User, Role, UserRole, Country } = sequelize.models
 
     const encodedPassword = generatePassword('admin')
 
@@ -48,6 +48,8 @@ export const seedDatabase = async (sequelize: Sequelize, testing = false) => {
       email: 'admin@test.com',
       ...encodedPassword
     })
+
+    await Country.create({ id: 1, intlCode: 'ARG', description: 'Argentina', language: 'ES', ownerId: null, active: true })
 
     await UserRole.create({ userId: 1, roleId: 1 })
   }
@@ -66,7 +68,7 @@ export const seedDatabase = async (sequelize: Sequelize, testing = false) => {
 
     await UserRole.create({ userId: 2, roleId: 2 })
 
-    await Person.create({ ...basePerson, id: 1, userId: 1 })
+    await Person.create({ ...basePerson, personType: 'A', id: 1, userId: 1 })
 
     await Person.create({
       id: 2,
@@ -75,7 +77,9 @@ export const seedDatabase = async (sequelize: Sequelize, testing = false) => {
       lastName: 'Martinez',
       documentNumber: '22222222',
       phoneNumber: '1122222222',
+      countryId: 1, 
       province: 'CABA',
+      personType: 'U',
       userId: 2,
       locality: 'CABA',
       zipCode: '1402',
@@ -92,6 +96,7 @@ export const basePerson = {
   documentNumber: '11111111',
   phoneNumber: '1122222222',
   province: 'Buenos Aires',
+  countryId: 1, 
   userId: 2,
   locality: 'Olivos',
   zipCode: '1636'
